@@ -1,17 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
- * Operador bit a bit E ( & ) and if( () && ())
- *
- * A B A & B
- * 0 0   0
- * 0 1   0
- * 1 0   0
- * 1 1   0
- */
+void deslocamentoEsquerdaDireita(){
+    // Deslocamento à esquerda
 
-int main() {
+    int a, b;
+    a = 1;      // 0001
+    b = a << 1; // 0010 = 2
+
+    printf("a: %d\tb: %d\n", a, b);
+
+    b = a << 2; // 0100 = 4
+    printf("a: %d\tb: %d\n", a, b);
+
+    b = a << 3; // 1000 = 8
+    printf("a: %d\tb: %d\n", a, b);
+
+    // Deslocamento à esquerda é o mesmo que multiplicar por 2
+
+    // Deslocamento à direita
+
+    a = 10;      // 1010
+    b = a >> 1;  // 0101 = 5
+
+    printf("a: %d\tb: %d\n", a, b);
+
+    b = a >> 2; // 0010 = 2
+    printf("a: %d\tb: %d\n", a, b);
+
+    b = a >> 3; // 0001 = 1
+    printf("a: %d\tb: %d\n", a, b);
+
+    // Deslocamento à direita é o mesmo que dividir por 2
+
+}
+
+void operadorAND(){
+    /*
+    * Gera sequência de zeros em bash
+    * for i in {1..32}; do echo -n 0; done; echo
+    * 00000000000000000000000000000000
+    *
+    * Operador bit a bit E ( & ) and if( () && ())
+    *
+    * A B A & B
+    * 0 0   0
+    * 0 1   0
+    * 1 0   0
+    * 1 1   0
+    */
+
     int a, b, c;
     a = 30;     // 0000.0000.0001.1110
     b = 19;     // 0000.0000.0001.0011
@@ -33,7 +71,11 @@ int main() {
         printf("Número impar \n");
     else
         printf("Número par \n");
+}
 
+int main() {
+    deslocamentoEsquerdaDireita();
+    operadorAND();
 
-    return 0;
+   return 0;
 }
