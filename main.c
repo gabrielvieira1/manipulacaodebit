@@ -1,5 +1,7 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 void deslocamentoEsquerdaDireita(){
     // Deslocamento à esquerda
@@ -160,12 +162,308 @@ void operadorOUExclusivo(){
     printf("a:%d\tb: %d\n", a,b);
 }
 
+void testCheckPalindroma()
+{
+    char palavra[10] = "gabriel";
+    int diferente = 0;
+
+    for (int i = 0; i < strlen(palavra) / 2; i++)
+    {
+        if (palavra[i] != palavra[strlen(palavra) - i - 1])
+            diferente++;
+    }
+
+    if (diferente == 0)
+        printf("\nEh palindroma\n");
+    else
+        printf("\nNão é palindroma\n");
+}
+
+void verificaPalavraPalindromaSemPerformace()
+{
+    char palavra[10];
+    int i, tam, diferentes = 0;
+
+    printf("Digite uma palavra: ");
+    scanf("%10s", palavra);
+
+    tam = strlen(palavra);
+    tam--;
+    i = 0;
+
+    while (tam >= i)
+    {
+        if (palavra[i] != palavra[tam])
+            diferentes++;
+        i++;
+        tam--;
+    }
+
+    if (diferentes == 0)
+        printf("\nEh palindroma...\n");
+    else
+        printf("\nNão é palindroma...\n");
+}
+
+void verificaPalavraPalindromaPerformace()
+{
+    char palavra[10];
+    int tam, diferente = 0;
+
+    printf("Digite uma palavra: ");
+    scanf("%10s", palavra);
+
+    tam = strlen(palavra);
+    // osso ou gabriel
+    for (int i = 0; i < tam / 2; i++)
+    {
+        if (palavra[i] != palavra[tam - i - 1])
+            diferente++;
+
+        printf("\nfora do if tam / 2:%d\t i: %d\t tam - i -1: %d\n", tam / 2, i, tam - i - 1);
+    }
+
+    if (diferente == 0)
+        printf("\nEh palindroma...\n");
+    else
+        printf("\nNão é palindroma...\n");
+}
+
+void checkPalindroma()
+{
+    char palavra[10] = "ada";
+    int diferente = 0;
+
+    // Percorre somente até a metade da palavra
+    for (int i = 0; i < strlen(palavra) / 2; i++)
+    {
+        // Check a palavra na posição 0 com a ultima - i - 1
+        if (palavra[i] != palavra[strlen(palavra) - i - 1])
+            diferente++;
+    }
+
+    if (diferente == 0)
+        printf("\nEh palindroma\n");
+    else
+        printf("\nNão é palindroma\n");
+}
+
+void checkpa()
+{
+    char palavra[10] = "gabriel";
+    int diferente = 0;
+
+    for (int i = 0; i < strlen(palavra) / 2; i++)
+    {
+        if (palavra[i] != palavra[strlen(palavra) - i - 1])
+            diferente++;
+    }
+
+    if (diferente == 0)
+        printf("\nEh Palindroma\n");
+    else
+        printf("\nNão é Palindroma\n");
+}
+
 int main() {
     deslocamentoEsquerdaDireita();
     operadorAND();
     operadorNOT();
     operadorOU();
     operadorOUExclusivo();
+
+    /*
+    printf("Deslocando bit a esquerda\n");
+
+    int a, b;
+    a = 10;
+    b = a << 1;
+    printf("a: %d\tb: %d\n", a, b);
+
+    printf("Deslocando bit a direita\n");
+
+    a = 10;
+    b = a >> 1;
+
+    printf("a: %d\tb: %d\n", a, b);
+
+    printf("Bit a Bit not\n");
+
+    a = 16;
+    b = ~a;
+
+    printf("a: %d\t~a: %d\n", a, b);
+
+    // Ativando um bit
+    printf("Ativando um bit com Bit a Bit OU\n");
+
+    a = 90;           // 01011010
+    b = a | (1 << 2); // 01011110
+    printf("a: %d\tb: %d\n", a, b);
+
+    printf("Testar se um bit está ligado com Bit a Bit AND\n");
+
+    a = 84;           //           1010100
+    b = a & (1 << 4); // 0010000
+
+    printf("a: %d\tb: %d\n", a, b);
+
+    printf("Limpando um bit com Bit a Bit NOT e AND\n");
+
+    a = 84;            //              1010100
+    b = a & ~(1 << 4); // 1000100
+
+    printf("a: %d\tb: %d\n", a, b);
+
+    printf("Invertendo o estado de um bit\n");
+
+    a = 97;           // 1100001
+    b = a ^ (1 << 5); // 1000001
+
+    printf("a: %d\tb: %d\n", a, b);
+
+    /*
+     A B A & B A | B A ^ B
+     0 0   0     0     0
+     0 1   0     1     1
+     1 0   0     1     1
+     1 1   1     1     0
+    */
+    /*
+      a = 95;     //     1011111
+      b = a << 1; // 10111110
+
+      printf("a: %d\tb: %d\n", a, b);
+
+      a = 5;      //      101
+      b = a >> 1; // 010
+
+      printf("a: %d\tb: %d\n", a, b);
+
+      printf("Ativar um bit a esquerda\n");
+
+      a = 5;            // 101
+      b = a | (1 << 1); // 010
+
+      printf("a: %d\tb: %d\n", a, b);
+
+      printf("Ativar um bit a direita\n");
+
+      a = 5;            //            101
+      b = a | (7 >> 1); // 111
+
+      printf("a: %d\tb: %d\n", a, b);
+
+      printf("Limpar um bit\n");
+
+      a = 5;             //            101 -> 101
+      b = a & ~(1 << 2); // 100 -> 011
+                         // 100 -> 001
+
+      printf("a: %d\tb: %d\n", a, b);
+
+      printf("Inverter bit\n");
+
+      a = 5;            // 101
+      b = a ^ (1 << 2); // 100
+
+      printf("a: %d\tb: %d\n", a, b);
+
+      printf("Testar valor de um bit\n");
+
+      a = 95;           // 1011111
+      b = a & (1 << 4); // 010000 Se for falso ele me retorna 0 sempre
+
+      printf("a: %d\tb: %d\n", a, b);
+
+    */
+    // verificaPalavraPalindromaSemPerformace();
+    // verificaPalavraPalindromaPerformace();
+    // checkPalindroma();
+
+    /*
+      A B A | B A & B A ^ B
+      0 0   0     0     0
+      0 1   1     0     1
+      1 0   1     0     1
+      1 1   1     1     0
+    */
+
+    int a = 5; // 101
+
+    /*
+    OU é usado para Ativar um bit porque basta passar um bit 1 na posição desejada
+    e ele vai sempre retornar 1 independete se for 0 ou 1
+    */
+    printf("Ativando um bit com OU\n");
+    // int resultado = a | (1 << 1); // 111
+    int resultado = a | (1 << 1);
+    printf("a: %d\t resultado: %d\n", a, resultado);
+
+    /*
+    AND é usado para testar um bit porque batas passar um bit 1 na posição desejada, se
+    retornar 0 o bit está desligado se retornar qualquer outro valor o bit está ligado
+    */
+    printf("Testando valor de um bit com AND\n");
+    // resultado = a & (1 << 1);
+    resultado = a & (1 << 1);
+    printf("a: %d\t resultado: %d\n", a, resultado);
+
+    /*
+     AND é usado para Limpar um bit porque basta passar um bit 1 na posição desejava e negar ele
+     que o resultado sempre vai ser retornar 0
+    */
+    printf("Limpando um bit com AND\n");
+    // resultado = a & ~(1 << 2);
+    resultado = a & ~(1 << 2);
+    printf("a: %d\t resultado: %d\n", a, resultado);
+
+    /*
+      OU exclusivo é usado para Inverter um bit porque basta passar um bit 1 na posição desejada
+      que o resultado vai ser sempre o inverso do bit verificado.
+    */
+    printf("Inverter um bit com OU exclusivo\n");
+    // resultado = a ^ (1 << 0);
+    resultado = a ^ (1 << 0);
+    printf("a: %d\t resultado: %d\n", a, resultado);
+
+    // checkPalindroma();
+
+    printf("Usando System call\n");
+    char buffer[20];
+
+    char comando[10] = "ls -a";
+    // char arg[10] = "-a";
+    char arg[10];
+    printf("Digite um comando\n");
+    // scanf("%10[^\n]", arg); // Ler espaço em branco
+
+    // scanf("%10[^\n]", comando); // Ler espaço em branco
+    // fgets(comando, sizeof(comando), stdin);
+
+    printf("Comando: %s\t arg: %s\n", comando, arg);
+
+    // snprintf(buffer, sizeof(buffer), "%s %s", comando, arg);
+
+    printf("Comando: %s\t arg: %s buffe: %s\n", comando, arg, buffer);
+
+    // testCheckPalindroma();
+
+    checkpa();
+
+    /*
+    A função System é usada para execultar comandos, o problema é que ela recebe uma única sequencia de comando e nessa
+    sequencia pode ser passado comandos maliciosos, que façam chamadas indevidas e causem comportamentos inesperados.
+    Basta subverter o comando anterior passando um ; e inserindo um comando malicioso.
+    */
+    // system(buffer);
+    // system("grep Content *;id");
+
+    // Na função execl devemos passar 3 parametros (Caminho do comando, comando, argumentos separados por virgual e NUll);
+    // execl("/bin/ls", "/bin/ls", "-lh", "/home", NULL);
+
+    // Diferente da função System o execl não permite a subversão do comando passando ; ela é a forma segura de fazer chamadas ao sistema
+    // execl("/bin/ls", comando, arg, NULL);
 
    return 0;
 }
