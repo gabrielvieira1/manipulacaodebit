@@ -79,6 +79,9 @@
 		<Unit filename="/home/gabriel/workspaces/clion/manipulacaodebit/main.c">
 			<Option target="manipulacaodebit"/>
 		</Unit>
+		<Unit filename="/home/gabriel/workspaces/clion/manipulacaodebit/main.h">
+			<Option target="manipulacaodebit"/>
+		</Unit>
 		<Unit filename="/home/gabriel/workspaces/clion/manipulacaodebit/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

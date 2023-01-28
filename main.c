@@ -47,7 +47,7 @@ void operadorAND(){
     * 0 0   0
     * 0 1   0
     * 1 0   0
-    * 1 1   0
+    * 1 1   1
     */
 
     int a, b, c;
@@ -85,7 +85,7 @@ void operadorNOT(){
 
     printf("a: %d\t~a: %d\n", a, b);
 
-    /* Complemento de dois, como representar o -2 em binário?
+    /* Complemento de dois, como representar o -2 em binário?   QzwDyaoaqSdC
      * 2 - em decimal
      * 0011 - dois em binário
      * 1100
